@@ -47,19 +47,19 @@ bonusPoint.xlsx                   |  Both company_parsed and contact_parsed valu
 
 How To Use
 --------------------
-1. Installing Packages
+1. <b>Installing Packages</b>
 First, before using the program, the packages and libraries (as stated before) has to be installed. You can install it using the ‘pip install __libraryName__’ command on your terminal.
 
-2. Installing Chromedriver
+2. <b>Installing Chromedriver</b><br>
 After installing the packages and libraries, you need to install chromedriver. Please note that you have to check your Chrome Browser version first.  You can do that by go to the settings on your Chrome and choose help. There you can see which version of Chrome you are using. Install the same chromedriver version as your current Chrome Web Browser.
  If you have installed the chromedriver, please put the chromdriver.exe in the same directory of the code. In Windows operation system, you can put the chromedriver in any directory but you have set it up in environment variable on the path section.
 
-3. Run the Code
+3. <b>Run the Code</b><br>
 Run the code, and make sure you don’t miss all the functions in the code column (If you are using other than Jupyter Notebook, copy all the code into .py file and run the file). 
 
 
-4. Call the main() function
+4. <b>Call the main() function</b><br>
 The main() function has two parameter. The first scrap to page and the last page to scrap. For example if you call main(2, 24), it means you will scrap the web from page 2 until 24. In the documentation section, you can see that I call main(1,50) which means I’m scraping page 1 until 50.
 
-5. Result
+5. <b>Result</b><br>
 If the scraping process is finished, in your directory you will receive several json files and 1 excel file.   The json files are   company_index.json, company_raw.json, company_parsed.json and contact_parsed.json. The excel file is bonusPoint.xlsx.  
