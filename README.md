@@ -1,68 +1,65 @@
-OEIS Tools
+Web Scraping - MSIA Logistics
 ==========
 
-This repository contains scripts to download, process, and analyze data from the
-Online Encyclopedia of Integer Sequences (OEIS), as hosted on http://www.oeis.org.
+This repository contains scripts to scrap the website of <a href='http://www.msialogistics.com/company/list'>MSIA Logistics</a>. The desired result should be json files and excel file.
 
-Overview
+Packages and Libraries
 --------
+- selenium,
+- time,
+- re,
+- json,
+- pandas
 
-Our tools handle OEIS data from three sources:
+Tools
+--------
+- Python
+- Jupyter Notebook (You can change the IDE based on your preference)
+- Chrome Web Browser
+- Chromedriver (You can download it here : https://chromedriver.chromium.org/ )
+- Microsoft Excel (For storing values)
+- Github 
 
-1. remote: the OEIS database residing on the oeis.org server. The remote database can be accessed via HTTP or HTTPS requests.
-2. local sqlite3: a replica of the remote database as a local SQLite3 database file.
-3. local pickle: the OEIS database a a local pickle-format file, used for local analysis. The "pickle" format is Python-specific.
 
-The local sqlite3 database is obtained from the remote database by an automatic web-crawler called 'fetch_oeis_database.py'.
-It contains the sequence metadata in the internal format as it is used on the remote side, as well as so called 'b-file'
-data that contain sequence data *a(n)* up to high values of *n*.
+Functions
+--------
+- scrapNormal (Scraps if the structure of the html is template 1*)
+- differentScrap (Scraps if the structure of the html is template 2*)
+- bonusPoint (Turning field and values to .xlsx file)
+- questionOne (Turning field and values to company_index.json)
+- questionTwo (Turning field and values to company_raw.json)
+- questionOne (Turning field and values to company_parsed.json and contact_parsed.json)
+- main (to Scrap for first selection of page to last selection of page)
 
-The local pickle format database is obtained from the local_sqlite3 database by parsing the data and turning it into OeisEntry
-instances. The pickled list of all OeisEntry instances can be read in its entirety within a few seconds.
-
-Apart from these sources that describe the OEIS data, we also use the "catalog", which is a Python module that contains
-implementations of sequence generating functions.
-
-Dependencies
-------------
-
-- All code is written in Python 3.
-- Some code depends on the 'numpy' library:
-  - show_database_time.py
-  - solve_linear_sequence.py
-- Some code depends on the 'matplotlib' library:
-  - show_database_time.py
 
 Description of files
 --------------------
 
-Non-Python files:
-
 filename                          |  description
 ----------------------------------|------------------------------------------------------------------------------------
-README.md                         |  Text file (markdown format) description of the project.
-catalog_files/*.json              |  Catalog files, describing parametrized sequence generating functions.
+Scrap MSIA Logistics.ipynb        |  The Scraping Code
+company_index.json            	  |  Company Name, Company Link, Country
+company_raw.json                  |  Company Name, Company Link, Company Address, Country, Company Phones, Company Fax, Company Emails, Company Website, Contacts, Company Industry
+company_parsed.json               |  Company Name, Company Link, Company Address, Country, Company Phones, Company Fax, Company Website, Company Industry
+contact_parsed.json               |  Company Name, Company Link, Country, Company Website, Contact Name, Contact Job Title, Contact Phone
+bonusPoint.xlsx                   |  Both company_parsed and contact_parsed values combined.
 
-Python scripts files:
 
-filename                          |  description
-----------------------------------|------------------------------------------------------------------------------------
-fetch_oeis_database.py            |  Fetch and refresh data from the remote OEIS database to a local sqlite3 database.
-show_database_time.py             |  Visualize time stamps in a given local sqlite3 OEIS database.
-parse_oeis_database.py            |  Parse a local sqlite3 database and produce a local pickle database.
-find_sequences.py                 |  Probe a local pickle database for a given sequence (work in progress).
-pickle_to_json.py                 |  Read a local pickle database and write a JSON version.
-solve_linear_sequence.py          |  Find linear sequences in a local 'pickle' database.
-check_database.py                 |  Perform a number of checks on the data in a local pickle database.
-verify_oeis_catalog.py            |  Verify the catalog.
+How To Use
+--------------------
+1. Installing Packages
+First, before using the program, the packages and libraries (as stated before) has to be installed. You can install it using the ‘pip install __libraryName__’ command on your terminal.
 
-Python modules:
+2. Installing Chromedriver
+After installing the packages and libraries, you need to install chromedriver. Please note that you have to check your Chrome Browser version first.  You can do that by go to the settings on your Chrome and choose help. There you can see which version of Chrome you are using. Install the same chromedriver version as your current Chrome Web Browser.
+ If you have installed the chromedriver, please put the chromdriver.exe in the same directory of the code. In Windows operation system, you can put the chromedriver in any directory but you have set it up in environment variable on the path section.
 
-filename                          |  description
-----------------------------------|------------------------------------------------------------------------------------
-fraction_based_linear_algebra.py  |  Perform matrix inversion without loss of precision using the Fraction type.
-charmap.py                        |  Defines lists of acceptable characters for the OEIS directives.
-OeisEntry.py                      |  Defines a simple class that contains (most of) the data of a single OEIS sequence.
-timer.py                          |  Simplifies timing lengthy operations using a context manager.
-fetch_remote_oeis_entry.py        |  Fetches a single sequence's data from the OEIS website (www.oeis.org).
-catalog.py                        |  Access the local catalog.
+3. Run the Code
+Run the code, and make sure you don’t miss all the functions in the code column (If you are using other than Jupyter Notebook, copy all the code into .py file and run the file). 
+
+
+4. Call the main() function
+The main() function has two parameter. The first scrap to page and the last page to scrap. For example if you call main(2, 24), it means you will scrap the web from page 2 until 24. In the documentation section, you can see that I call main(1,50) which means I’m scraping page 1 until 50.
+
+5. Result
+If the scraping process is finished, in your directory you will receive several json files and 1 excel file.   The json files are   company_index.json, company_raw.json, company_parsed.json and contact_parsed.json. The excel file is bonusPoint.xlsx.  
